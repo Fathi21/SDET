@@ -1,0 +1,38 @@
+[
+  {
+    "reg": "AB12 CDE",
+    "make": "Ford",
+    "colour": "Blue",
+    "first_registered": "2012-06-15",
+    "tax_expiry": "2026-11-30",
+    "sorn": false,
+    "mot_expiry": "2026-12-08"
+  },
+  {
+    "reg": "FG65 HIJ",
+    "make": "Vauxhall",
+    "colour": "Silver",
+    "first_registered": "2015-09-02",
+    "tax_expiry": "2026-08-14",
+    "sorn": true,
+    "mot_expiry": "2026-03-21"
+  },
+  {
+    "reg": "KL25 MNO",
+    "make": "Tesla",
+    "colour": "White",
+    "first_registered": "2025-03-01",
+    "tax_expiry": "2027-03-01",
+    "sorn": false,
+    "mot_expiry": null
+  },
+  {
+    "reg": "PQ85 RST",
+    "make": "Triumph",
+    "colour": "Racing Green",
+    "first_registered": "1985-04-10",
+    "tax_expiry": "2026-10-31",
+    "sorn": true,
+    "mot_expiry": null
+  }
+]
