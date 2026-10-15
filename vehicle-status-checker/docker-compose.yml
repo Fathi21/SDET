@@ -1,0 +1,13 @@
+services:
+  api:
+    build: api
+    ports:
+      - "8000:8000"
+
+    depends_on:
+      - mot-stub
+
+  mot-stub:
+    build: mot-stub
+    ports:
+      - "8001:8000"
