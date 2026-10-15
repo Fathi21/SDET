@@ -34,5 +34,41 @@
     "tax_expiry": "2026-10-31",
     "sorn": true,
     "mot_expiry": null
+  },
+  {
+    "reg": "HY21 TAX",
+    "make": "Hyundai",
+    "colour": "Blue",
+    "first_registered": "2021-02-11",
+    "tax_expiry": "2026-10-14",
+    "sorn": false,
+    "mot_expiry": "2027-01-10"
+  },
+  {
+    "reg": "KI22 DAY",
+    "make": "Kia",
+    "colour": "Silver",
+    "first_registered": "2022-05-19",
+    "tax_expiry": "2026-10-15",
+    "sorn": false,
+    "mot_expiry": "2027-02-01"
+  },
+  {
+    "reg": "PE18 MOT",
+    "make": "Peugeot",
+    "colour": "Grey",
+    "first_registered": "2018-08-07",
+    "tax_expiry": "2027-01-31",
+    "sorn": false,
+    "mot_expiry": "2026-09-20"
+  },
+  {
+    "reg": "MZ20 VAL",
+    "make": "Mazda",
+    "colour": "Red",
+    "first_registered": "2020-03-30",
+    "tax_expiry": "2026-09-01",
+    "sorn": false,
+    "mot_expiry": "2027-03-12"
   }
 ]
