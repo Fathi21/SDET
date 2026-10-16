@@ -1,29 +1,26 @@
 from fastapi import FastAPI, HTTPException
+import json
+from pathlib import Path
+
+# Loaded once at startup
+seed_file = Path(__file__).with_name("seedingData.json")
+with open(seed_file, "r", encoding="utf-8") as file:
+    seed_data = json.load(file)
 
 app = FastAPI()
 
+
 @app.get("/health")
 def health_check():
-    return {"status": "healthy"}    
+    return {"status": "healthy"}
 
-@app.get("/vehicles/{registration_number}")
-def get_mot_status(registration_number: str):
-    # returns: 
-    #     tax status
-    #     MOT status,
-    #     with MOT shown 
-    #     as “Unavailable” 
-    #     if the stub fails.
-    
-    if registration_number.length == 0:
-        raise HTTPException(status_code=400, detail="Invalid registration number")
-    
-app.post("/vehicles/{registration_number}/mot")
-def update_mot_status(registration_number: str, mot_status: str, expiry_date: str):
-    # Simulate updating the MOT status for a vehicle
-    
-    if registration_number.length == 0:
-        raise HTTPException(status_code=400, detail="Invalid registration number")
-    
-    
-    
+
+@app.get("/mot/{reg}")
+def get_mot_status(reg: str):
+    clean_reg = reg.replace(" ", "").upper()
+
+    for item in seed_data:
+        if item["reg"].replace(" ", "") == clean_reg:
+            return {"reg": item["reg"], "mot_expiry": item["mot_expiry"]}
+
+    raise HTTPException(status_code=404, detail="Vehicle not found")
