@@ -1,5 +1,7 @@
 from fastapi import FastAPI, HTTPException
 
+from registration import check_registration
+
 app = FastAPI()
 
 # items = [
