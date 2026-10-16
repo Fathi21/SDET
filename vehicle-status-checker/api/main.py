@@ -17,15 +17,13 @@ def vehicles(reg: str):
 
     reg = check_registration(reg)
         
-    if reg is not None:
-        
-        for item in seedData:
-            if item["reg"] == reg:
-                return item   
-            
-    else:
+    if reg is None:
         raise HTTPException(status_code=400, detail="Invalid registration number")
-            
+
+    for item in seedData:
+        if item["reg"] == reg:
+            return item   
+                
     
     raise HTTPException(status_code=404, detail="Item not found")
 
