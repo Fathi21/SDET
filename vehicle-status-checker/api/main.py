@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse
 
 from registration import check_registration
 from mot_rules import calculate_mot_status
@@ -18,6 +19,11 @@ seed_file = Path(__file__).with_name("seedingData.json")
 
 with open(seed_file, "r", encoding="utf-8") as file:
     seed_data = json.load(file)
+
+
+@app.get("/")
+def index():
+    return FileResponse(Path(__file__).with_name("index.html"))
 
 
 @app.get("/health")

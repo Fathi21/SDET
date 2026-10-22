@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vehicle Status Checker</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 480px; margin: 40px auto; padding: 0 16px; }
+    input { font-size: 1.2em; padding: 6px; text-transform: uppercase; width: 60%; }
+    button { font-size: 1.2em; padding: 6px 14px; }
+    #result { margin-top: 20px; padding: 12px; border: 1px solid #ccc; border-radius: 6px; display: none; }
+    #result.error { border-color: #c00; color: #c00; }
+    table { border-collapse: collapse; width: 100%; }
+    td { padding: 4px 8px; border-bottom: 1px solid #eee; }
+    td:first-child { font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Vehicle Status Checker</h1>
+
+  <form id="form">
+    <input id="reg" placeholder="e.g. AB12 CDE" autofocus>
+    <button type="submit">Check</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    const form = document.getElementById("form");
+    const regInput = document.getElementById("reg");
+    const result = document.getElementById("result");
+
+    function show(content, isError) {
+      result.className = isError ? "error" : "";
+      result.replaceChildren(content);
+      result.style.display = "block";
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const reg = regInput.value.trim();
+      if (!reg) return;
+
+      try {
+        const response = await fetch(`/vehicles/${encodeURIComponent(reg)}`);
+        const data = await response.json();
+
+        if (response.status === 200) {
+          const table = document.createElement("table");
+          for (const [key, value] of Object.entries(data)) {
+            const row = table.insertRow();
+            row.insertCell().textContent = key;
+            row.insertCell().textContent = value ?? "-";
+          }
+          show(table, false);
+        } else if (response.status === 404) {
+          show("Not found", true);
+        } else {
+          show(data.detail ?? `Error ${response.status}`, true);
+        }
+      } catch {
+        show("Could not reach the API", true);
+      }
+    });
+  </script>
+</body>
+</html>
