@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 import json
 from pathlib import Path
-
+from registration import check_registration
 # Loaded once at startup
 seed_file = Path(__file__).with_name("seedingData.json")
 with open(seed_file, "r", encoding="utf-8") as file:
@@ -17,10 +17,19 @@ def health_check():
 
 @app.get("/mot/{reg}")
 def get_mot_status(reg: str):
-    clean_reg = reg.replace(" ", "").upper()
+    formatted = check_registration(reg)
+
+    if formatted is None:
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid registration number"
+        )
 
     for item in seed_data:
-        if item["reg"].replace(" ", "") == clean_reg:
-            return {"reg": item["reg"], "mot_expiry": item["mot_expiry"]}
+        if item["reg"] == formatted:
+            return {
+                "reg": item["reg"],
+                "mot_expiry": item["mot_expiry"]
+            }
 
     raise HTTPException(status_code=404, detail="Vehicle not found")
